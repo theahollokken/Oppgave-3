@@ -1,0 +1,25 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(-2, 2, 1000)
+y = np.linspace(-2, 2, 1000)
+X, Y = np.meshgrid(x,y)
+
+#potensialfunksjonen
+def phi(x,y):
+    return x*(1+1/(x**2+y**2))
+
+def partiellderivert(x,y):
+    #derivatene for potensialfunksjonen
+    U = 1 + 1/(x**2 + y**2) - 2*x**2/(x**2 + y**2)**2
+    V = -2*x*y/(x**2+y**2)**2
+    return U,V
+
+U_derivert, V_derivert = partiellderivert(X,Y)
+
+# plot
+fig, ax = plt.subplots(figsize=(20,10))
+strm = ax.streamplot(X,Y, U_derivert, V_derivert, color='b', linewidth=2)
+ax.set_title('Korrigerte strømlinjer for gitt potensialfelt')
+
+plt.show()
